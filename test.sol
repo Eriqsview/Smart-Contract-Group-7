@@ -28,3 +28,15 @@ contract Blackjack { // Blackjack parameters
     Player = _Player;
   }
 }
+
+address public player;
+
+// Storing players bet
+struct Player {
+    uint amountofbet;
+}
+
+// simple mapping in storage
+mapping(address => uint256) public betofplayer;
+
+}
