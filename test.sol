@@ -5,7 +5,7 @@
 pragma solidity ^0.8.9;
 
 contract Blackjack { // Blackjack parameters
-  address public Player
+  address private Player = msg.sender
   uint public endTime; // as UNIX timestamp for end of round
 // Time for each round 1 min need to include mutliple rounds
   constructor (address _Player, uint _durationMinutes) {
