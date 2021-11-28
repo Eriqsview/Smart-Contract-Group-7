@@ -8,5 +8,18 @@
 pragma solidity ^0.8.9;
 
 contract Blackjack {
-    // Blackjack parameters
+    address public dealer;
+    uint256 public minBet = 0.01 ether;
+    uint256 public maxBet = 100 ether;
+    
+    address public player;
 
+    // Storing players bet
+    struct Player {
+        uint amountofbet;
+    }
+    
+    // simple mapping in storage
+    mapping(address => uint256) public betofplayer;
+
+    }
