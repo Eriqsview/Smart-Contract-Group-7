@@ -1,13 +1,11 @@
-# Smart Contract Group 7
- Group Project
+# Smart Contract Group 7 Project. Blackjack game.
  
- /* Rules of the game:
- One player per game.
- Player has to choose his bet betwenn _ and _ .
- Blackjack pays 3 to 2.
- No split available.
-Time per decision is set to _ .
-*/
+### Rules of the game:
+1. One player per game.
+2. Player has to choose his bet betwenn _ and _ .
+3. Blackjack pays 3 to 2.
+4. No split available.
+5. Time per decision is set to _ .
  
 
 //SPDX-License-Identifier: MIT
