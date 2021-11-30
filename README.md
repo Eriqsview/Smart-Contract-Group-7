@@ -2,7 +2,7 @@
  
 ### Rules of the game:
 1. One player per game.
-2. Player has to choose his bet betwenn _ and _ .
+2. Player has to choose his bet between _ and _ .
 3. Blackjack pays 3 to 2.
 4. No split available.
 5. Time per decision is set to _ .
