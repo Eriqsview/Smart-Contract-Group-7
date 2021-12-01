@@ -14,28 +14,30 @@ contract Blackjack { // Blackjack parameters
     uint public dealercard1;
     uint public dealercard2;
     uint public playercards;
+    uint public dealercards;
+    uint public playercardadd;
     uint public random;
+    uint public dealeradd;
     address public winnerBlackjack;
     string private playermsg;
-   address private Player = msg.sender;
-   uint public TurnEndTime; // as UNIX timestamp for end of round
+    address private Player = msg.sender;
+    uint public TurnEndTime; // as UNIX timestamp for end of round
   
 // Time for each round 1 min need to include mutliple rounds
 
-  constructor (address _Player, uint _durationMinutes) {
+constructor (address _Player, uint _durationMinutes) {
     Player = _Player;
     TurnEndTime = block.timestamp + _durationMinutes * 1 minutes;
-    //uint [13] cardValues = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
   }
 
- function initialize (address _Player) external{
-     }
+// function initialize (address _Player) external{
+//     }
 
 // accept and store valid bets
 
-  function bet() public payable {
-    require (block.timestamp < TurnEndTime, 'No bets allowed');
- }
+//  function bet() public payable {
+//    require (block.timestamp < TurnEndTime, 'No bets allowed');
+// }
 
 //Randomisation 
   //1. Generate a random number vom 0 to 13
@@ -55,7 +57,7 @@ function RNG() internal returns(uint) {
     } 
 //Main Game
   //Basic game allways runs
-    function game() internal returns (uint) {
+function game() external returns (uint) {
 
     playercard1 = RNG(); 
     dealercard1 = RNG();
@@ -67,7 +69,7 @@ function RNG() internal returns(uint) {
     playercard2 = 1;
 
   //players decision
-   
+   //automatic
    if (playercard1 + playercard2 == 21)  //black jack 
    playermsg = "Black Jack";
    roundend = false; 
@@ -78,20 +80,44 @@ function RNG() internal returns(uint) {
     if (dealercard1 + dealercard2 < 21)
     playermsg = "Player Wins"; 
     roundend = true;  // player wins
+ }
+ //HIT
+ function hit() external returns (uint) {
+   if (playercards < 21)
+   playercardadd = RNG();
 
-   if (playercard1 + playercard2 < 21) 
-   roundend = false; 
-   //playermsg ("Cards") = (playercard1 + playercard2); 
+     if (playercardadd == 11 && playercardadd + playercards > 21) 
+     playercardadd = 1;
 
-   while (playercards < 13) {
-   playercards + RNG(); 
+   playercards += playercardadd;
+   return playercards; 
    roundend = true; 
-    }
+   playermsg = "cardvalues"; 
+  
+}
+//FOLD
+function fold() external returns (uint) {
+  
+dealercard2 = RNG();
 
-   //playermsg ("Cards") = (playercards); 
+if (dealercard1 + dealercard2 < playercards)
+dealeradd = RNG();
+
+dealercards += dealeradd;
+
+if (dealercard1 + dealercard2 > playercards && dealercard1 + dealercard2 > 21)
+playermsg = "Player Wins"; 
+roundend = true;
+
+if (dealercard1 + dealercard2 > playercards && dealercard1 + dealercard2 < 21)
+playermsg = "Dealer Wins"; 
+roundend = true;
 
 }
-
+// Viewer for All Values 
+function Values() public view returns (uint PlayerCard1, uint PlayerCard2, uint PlayerNewCard, uint PlayerCardTotal) {
+ return ( playercard1, playercard2, playercardadd, playercards);
+}
 
 //address public player;
 
