@@ -21,7 +21,7 @@ There are 2 possible outcomes based on the value of dealer's 2 cards:
 1. if the value of the 2 first cards is below 17, the dealer gets one more card. This will be repeated until dealer has card's value of 17 or more.
 2. if the value of the 2 first cards is 17 or more, dealer doesn't receive any more cards.
  
-### -------------------------
+## 
 
 //SPDX-License-Identifier: MIT
 
