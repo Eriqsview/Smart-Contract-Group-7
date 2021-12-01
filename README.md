@@ -4,8 +4,9 @@
 1. One player per game.
 2. Player has to choose his bet between _ and _ .
 3. Blackjack pays 3 to 2.
-4. No split available in this version.
-5. Time per decision is set to _ .
+4. When doubling down, player has to double his initial bet.
+5. No split available in this version.
+6. Time per decision is set to _ .
 
 ### Game process.
 
