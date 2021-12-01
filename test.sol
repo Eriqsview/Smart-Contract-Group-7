@@ -57,10 +57,10 @@ contract Blackjack {
     TurnEndTime = block.timestamp + _durationMinutes * 1 minutes;
     }
 
-    function GameEnd() external {
-    require(player = msg.sender);
-    require(balance > 0);
-    inprogress = false;
-    payable(msg.sender).transfer(balance);  
-    }
+   // function GameEnd() external {
+   // require(player = msg.sender);
+   // require(balance > 0);
+   // inprogress = false;
+  // payable(msg.sender).transfer(balance);  
+  // }
 }
