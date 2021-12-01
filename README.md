@@ -4,8 +4,22 @@
 1. One player per game.
 2. Player has to choose his bet between _ and _ .
 3. Blackjack pays 3 to 2.
-4. No split available.
+4. No split available in this version.
 5. Time per decision is set to _ .
+
+### Game process.
+
+
+### Player moves:
+1. Hit - player gets one more card. This move can be repeated till player has 21 or more (or holds more than 5 cards?).
+2. Stand - player takes no more cards.
+3. Double down - player doubles his initial bet and gets only one more card. Can only be chosen after initial 2 cards are distributed.
+4. Surrender - player stops the round and receives half of his initial bet back.
+
+### Dealer moves:
+There are 2 possible outcomes based on the value of dealer's 2 cards:
+1. if the value of the 2 first cards is below 17, the dealer gets one more card. This will be repeated until dealer has card's value of 17 or more.
+2. if the value of the 2 first cards is 17 or more, dealer doesn't receive any more cards.
  
 
 //SPDX-License-Identifier: MIT
