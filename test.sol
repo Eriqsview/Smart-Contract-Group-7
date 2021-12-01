@@ -1,43 +1,61 @@
-pragma solidity ^0.8.9;
-
 //SPDX-License-Identifier: MIT
 
 // Warning: Do not use for actual funds.
 
-contract Blackjack { // Blackjack parameters
-  address private Player = msg.sender;
-  uint public TurnEndTime;// as UNIX timestamp for end of round
-// Time for each round 1 min need to include mutliple rounds
-  constructor (address _Player, uint _durationMinutes) {
-    Player = _Player;
+pragma solidity ^0.8.9;
+
+contract Blackjack {
+
+    // State variables
+    address public dealer;
+    address private player = msg.sender;
+    uint256 public minBet =  5 ether;
+    uint256 public maxBet = 10 ether;
+    bool public inprogress;
+
+    uint public dealerFund;
+    uint public playerFund;
+    uint public bet = msg.value;
+    uint public TurnEndTime;
+    
+    // simple mapping in storage
+    mapping(address => uint256) public betofplayer;
+
+    function placebet() external payable {
+        require (player == msg.sender);
+        require (inprogress == false);
+    }
+
+    // Handles the validation and registration of players and the bet
+    function ApproveBet() public payable {
+    // Check if game is gameRunning
+        require(
+            inprogress == false,
+            "Game is in progress. You cannot bet right now."
+        );
+
+    // add player if bet amount is valid
+        if (player == address(0)) {
+            // Check if bet is in acceptable range
+            require(
+                msg.value <= maxBet,
+                "Please bet less than 1000000 wei."
+            );
+            require(
+                msg.value >= minBet,
+                "Please bet more than 1000 wei."
+            );
+            player = msg.sender;
+            bet = msg.value;
+    }
+    }
+
+    function balance() external view returns(uint) {
+        return address(this).balance;
+    }
+
+    constructor (address _player, uint _durationMinutes) {
+    player = _player;
     TurnEndTime = block.timestamp + _durationMinutes * 1 minutes;
   }
-  // accept and store valid bets
-
-  function bet() public payable {
-    require (block.timestamp < TurnEndTime, 'No bets allowed');
-  }
-
-  //State of the game
-  uint public playerbet;
-  address public winnerBlackjack;
-  bool public hasEnded;
-  uint [13] cardValues = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
-  function initialize (address _Player) external
-  {
-    Player = _Player;
-  }
-}
-
-}
-address public player;
-
-// Storing players bet
-struct Player {
-    uint amountofbet;
-}
-
-// simple mapping in storage
-mapping(address => uint256) public betofplayer;
-
 }
