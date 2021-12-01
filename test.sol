@@ -26,17 +26,17 @@ contract Blackjack {
         require (inprogress == false);
     }
 
-    // Handles the validation and registration of players and the bet
+    // Only allowed to play if game is not in progress and bet amount is correct
     function ApproveBet() public payable {
-    // Check if game is gameRunning
+    // Check if game in progress
         require(
             inprogress == false,
             "Game is in progress. You cannot bet right now."
         );
 
-    // add player if bet amount is valid
+    // allow player if bet amount is valid
         if (player == address(0)) {
-            // Check if bet is in acceptable range
+            // Check if bet is in approved range
             require(
                 msg.value <= maxBet,
                 "Please bet less than 1000000 wei."
