@@ -8,9 +8,9 @@ contract Blackjack {
 
     // State variables
     address public dealer;
-    address private player = msg.sender;
-    uint256 public minBet =  5 ether;
-    uint256 public maxBet = 10 ether;
+    address public player = msg.sender;
+    uint256 public minBet =  1000 wei;
+    uint256 public maxBet = 1000000 wei;
     bool public inprogress;
 
     uint public dealerFund;
@@ -26,36 +26,41 @@ contract Blackjack {
         require (inprogress == false);
     }
 
-    // Only allowed to play if game is not in progress and bet amount is correct
+    // Handles the validation and registration of players and the bet
     function ApproveBet() public payable {
-    // Check if game in progress
+    // Check if game is gameRunning
         require(
             inprogress == false,
             "Game is in progress. You cannot bet right now."
         );
 
-    // allow player if bet amount is valid
-        if (player == address(0)) {
-            // Check if bet is in approved range
-            require(
+    // Check if bet is in acceptable range
+        require(
                 msg.value <= maxBet,
                 "Please bet less than 1000000 wei."
-            );
-            require(
+        );
+        require(
                 msg.value >= minBet,
                 "Please bet more than 1000 wei."
-            );
-            player = msg.sender;
-            bet = msg.value;
-    }
+        );
+        player = msg.sender;
+        bet = msg.value;
+    
     }
 
-    function balance() external view returns(uint) {
+    function balance() public view returns(uint) {
         return address(this).balance;
     }
 
     constructor (address _player, uint _durationMinutes) {
     player = _player;
     TurnEndTime = block.timestamp + _durationMinutes * 1 minutes;
-  }
+    }
+
+    function GameEnd() external {
+    require(player = msg.sender);
+    require(balance > 0);
+    inprogress = false;
+    payable(msg.sender).transfer(balance);  
+    }
 }
