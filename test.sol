@@ -7,7 +7,7 @@ pragma solidity ^0.8.9;
 contract Blackjack { // Blackjack parameters
 
 //State variables
-    bool public roundend;
+    bool private roundend;
     uint public playerbet;
     uint public playercard1;
     uint public playercard2;
@@ -15,12 +15,12 @@ contract Blackjack { // Blackjack parameters
     uint public dealercard2;
     uint public playercards;
     uint public dealercards;
-    uint public playercardadd;
-    uint public dealeradd;
-    uint public random;
-    uint public mixer;
+    uint private playercardadd;
+    uint private dealeradd;
+    uint private random;
+    uint private mixer;
     address public winnerBlackjack;
-    string public playermsg;
+    string private playermsg;
     address private Player = msg.sender;
     uint public TurnEndTime; // as UNIX timestamp for end of round
   
@@ -88,7 +88,7 @@ function game() external returns (string memory _playermsg) {
     }}
 
   if (playercard1 + playercard2 < 21) {
-  _playermsg = "Hit or fold";
+  _playermsg = "Hit or stand";
  }}
 
  //HIT
@@ -103,18 +103,18 @@ function game() external returns (string memory _playermsg) {
 
    
   
-   playermsg = "Hit or fold"; 
+   playermsg = "Hit or stand"; 
    roundend = true; 
    return playercards; 
   
 }
-//FOLD
-function fold() external returns (string memory _playermsg) {
+//Stand
+function stand() external returns (string memory _playermsg) {
   
 dealercard2 = RNG();
 dealercards = dealercard1 + dealercard2;
 
-if (dealercard1 + dealercard2 < playercards){
+while (dealercards < 17){
 dealeradd = RNG();
 dealercards += dealeradd;
 }
@@ -122,18 +122,18 @@ if (dealercards > playercards && dealercards > 21){
 _playermsg = "Player Wins"; 
 roundend = true;
 }
-else if (dealercards > playercards && dealercards < 21){
+else if (dealercards > playercards && dealercards < 22){
 _playermsg = "Dealer Wins"; 
 roundend = true;
 }
-else if (dealercards < playercards && playercards < 21){
+else if (dealercards < playercards && playercards < 22){
 _playermsg = "Player Wins"; 
 roundend = true;
 }
 return _playermsg; 
 
 }
-// All Values 
+// Summary of card Values 
 function Values() public view returns (uint PlayerCard1, uint PlayerCard2, uint PlayerCardTotal, uint Dealercard1, uint Dealercard2, uint Dealercards) {
  return (playercard1, playercard2, playercards, dealercard1, dealercard2, dealercards);
 }
