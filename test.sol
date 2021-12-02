@@ -31,11 +31,11 @@ contract Blackjack {
     string private playermsg;
     address private player = msg.sender;
     uint public TurnEndTime; // as UNIX timestamp for end of round
-    address public dealer;
-    uint256 public minBet =  1000 wei;
-    uint256 public maxBet = 1000000 wei;
-    uint public balance;
-    uint public BetWinnings = msg.value;
+    address private dealer;
+    uint256 private minBet =  1000 wei;
+    uint256 private maxBet = 1000000 wei;
+    uint public balance = msg.value;
+    uint public BetWinnings;
 
     // Functions
    
@@ -52,7 +52,7 @@ contract Blackjack {
         require(msg.value <= maxBet);
         require(msg.value >= minBet);
         player = msg.sender;
-        BetWinnings = msg.value;
+        balance = msg.value;
     }
 
     // Time for each round 1 min need to include mutliple rounds
