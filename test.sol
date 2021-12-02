@@ -16,10 +16,11 @@ contract Blackjack { // Blackjack parameters
     uint public playercards;
     uint public dealercards;
     uint public playercardadd;
-    uint public random;
     uint public dealeradd;
+    uint public random;
+    uint public mixer;
     address public winnerBlackjack;
-    string private playermsg;
+    string public playermsg;
     address private Player = msg.sender;
     uint public TurnEndTime; // as UNIX timestamp for end of round
   
@@ -41,14 +42,17 @@ constructor (address _Player, uint _durationMinutes) {
 
 //Randomisation 
   //1. Generate a random number vom 0 to 13
+  // block.time to get a dierrent random no. every sec. 
+  // block.diff simple value that changes over time
 function RNG() internal returns(uint) {
-        random = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender)
+        random = (uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, mixer)
         )) % 13+1);
-
+  // add variable to get different result at the same time
+     mixer = 69 * random;
   //2. adjust for card values
 
      if (random > 10)
-     random = 10; // Defining value of KQJ of 10 
+     random = 10; // Defining value of KQJ 
 
      if (random == 1)
      random = 11; //default value for ace
@@ -57,66 +61,81 @@ function RNG() internal returns(uint) {
     } 
 //Main Game
   //Basic game allways runs
-function game() external returns (uint) {
+function game() external returns (string memory _playermsg) {
 
     playercard1 = RNG(); 
     dealercard1 = RNG();
     playercard2 = RNG(); 
 
-    playercards = playercard1 + playercard2;
-
     if (playercard1 + playercard2 > 21)
     playercard2 = 1;
 
+    playercards = playercard1 + playercard2;
+
   //players decision
    //automatic
-   if (playercard1 + playercard2 == 21)  //black jack 
-   playermsg = "Black Jack";
+   if (playercard1 + playercard2 == 21) { //black jack 
+   _playermsg = "Black Jack";
    roundend = false; 
    dealercard2 = RNG(); 
-    if (dealercard1 + dealercard2 == 21) 
-    playermsg = "Tie";
+    if (dealercard1 + dealercard2 == 21) { 
+    _playermsg = "Tie";
     roundend = true;  // player bet back
-    if (dealercard1 + dealercard2 < 21)
-    playermsg = "Player Wins"; 
+    }
+    if (dealercard1 + dealercard2 < 21) { 
+    _playermsg = "Player Wins"; 
     roundend = true;  // player wins
- }
+    }}
+
+  if (playercard1 + playercard2 < 21) {
+  _playermsg = "Hit or fold";
+ }}
+
  //HIT
  function hit() external returns (uint) {
    if (playercards < 21)
    playercardadd = RNG();
 
+   playercards += playercardadd;
+
      if (playercardadd == 11 && playercardadd + playercards > 21) 
      playercardadd = 1;
 
-   playercards += playercardadd;
-   return playercards; 
+   
+  
+   playermsg = "Hit or fold"; 
    roundend = true; 
-   playermsg = "cardvalues"; 
+   return playercards; 
   
 }
 //FOLD
-function fold() external returns (uint) {
+function fold() external returns (string memory _playermsg) {
   
 dealercard2 = RNG();
+dealercards = dealercard1 + dealercard2;
 
-if (dealercard1 + dealercard2 < playercards)
+if (dealercard1 + dealercard2 < playercards){
 dealeradd = RNG();
-
 dealercards += dealeradd;
-
-if (dealercard1 + dealercard2 > playercards && dealercard1 + dealercard2 > 21)
-playermsg = "Player Wins"; 
+}
+if (dealercards > playercards && dealercards > 21){
+_playermsg = "Player Wins"; 
 roundend = true;
-
-if (dealercard1 + dealercard2 > playercards && dealercard1 + dealercard2 < 21)
-playermsg = "Dealer Wins"; 
+}
+else if (dealercards > playercards && dealercards < 21){
+_playermsg = "Dealer Wins"; 
 roundend = true;
+}
+else if (dealercards < playercards && playercards < 21){
+_playermsg = "Player Wins"; 
+roundend = true;
+}
+return _playermsg; 
 
 }
-// Viewer for All Values 
-function Values() public view returns (uint PlayerCard1, uint PlayerCard2, uint PlayerNewCard, uint PlayerCardTotal) {
- return ( playercard1, playercard2, playercardadd, playercards);
+// All Values 
+function Values() public view returns (uint PlayerCard1, uint PlayerCard2, uint PlayerCardTotal, uint Dealercard1, uint Dealercard2, uint Dealercards) {
+ return (playercard1, playercard2, playercards, dealercard1, dealercard2, dealercards);
 }
 
 //address public player;
