@@ -9,6 +9,14 @@
 6. Time per decision is set to _ .
 
 ### Game process.
+1. Choose a value and deploy a contraact on remix;
+2. Place a bet;
+3. Approve the bet;
+4. Generate ranadom number (RNG);
+5. Start the game - cards are dealt;
+6. Choose a move (hit/stand/DD/surrender);
+7. Winnings distributed according to game outcomes;
+8. Game ended, funds transferred from balance to players account;
 
 
 ### Player moves:
