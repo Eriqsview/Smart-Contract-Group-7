@@ -39,7 +39,7 @@ contract Blackjack {
 
     // Functions
    
-    function SendEther() external payable {}
+    // function SendEther() external payable {} Unfortunately this function as a function to put Ether in the Smart contract didn't work 
 
     // Bet Approval
     function ApproveBet() public payable {
@@ -186,4 +186,6 @@ contract Blackjack {
     function Values() public view returns (uint PlayerCard1, uint PlayerCard2, uint PlayerCardTotal, uint Dealercard1, uint Dealercard2, uint Dealercards) {
         return (playercard1, playercard2, playercards, dealercard1, dealercard2, dealercards);
         }
+//  function withdraw() public payable{
+  //      payable(msg.sender).transfer(balance); Unfortunately this function as a payout function didn't work in our Smart contract
 }
