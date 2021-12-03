@@ -29,28 +29,3 @@
 There are 2 possible outcomes based on the value of dealer's 2 cards:
 1. if the value of the 2 first cards is below 17, the dealer gets one more card. This will be repeated until dealer has card's value of 17 or more.
 2. if the value of the 2 first cards is 17 or more, dealer doesn't receive any more cards.
- 
-## 
-
-//SPDX-License-Identifier: MIT
-
-// Warning: Do not use for actual funds.
-
-pragma solidity ^0.8.9;
-
-contract Blackjack {
-    address public dealer;
-    uint256 public minBet = 0.01 ether;
-    uint256 public maxBet = 100 ether;
-    
-    address public player;
-
-    // Storing players bet
-    struct Player {
-        uint amountofbet;
-    }
-    
-    // simple mapping in storage
-    mapping(address => uint256) public betofplayer;
-
-    }
