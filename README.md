@@ -11,8 +11,6 @@
 ### Player moves:
 1. Hit - player gets one more card. This move can be repeated till player has 21 or more (or holds more than 5 cards?).
 2. Stand - player takes no more cards.
-3. Double down - player doubles his initial bet and gets only one more card. Can only be chosen after initial 2 cards are distributed.
-4. Surrender - player stops the round and receives half of his initial bet back.
 
 ### Dealer moves:
 There are 2 possible outcomes based on the value of dealer's 2 cards:
