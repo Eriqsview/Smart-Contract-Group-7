@@ -12,7 +12,7 @@ pragma solidity ^0.8.9;
     4. No doubling down
     5. No split
     6. No surrender 
-    7. Time per decision is set to 1 minute */
+    7. Time per decision is set to X minutes */
 
 contract Blackjack { 
 
