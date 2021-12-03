@@ -8,17 +8,6 @@
 5. No split available in this version.
 6. No surrender function available in this version.
 
-### Game process.
-1. Choose a value and deploy a contraact on remix;
-2. Place a bet;
-3. Approve the bet;
-4. Generate ranadom number (RNG);
-5. Start the game - cards are dealt;
-6. Choose a move (hit/stand/DD/surrender);
-7. Winnings distributed according to game outcomes;
-8. Game ended, funds transferred from balance to players account;
-
-
 ### Player moves:
 1. Hit - player gets one more card. This move can be repeated till player has 21 or more (or holds more than 5 cards?).
 2. Stand - player takes no more cards.
