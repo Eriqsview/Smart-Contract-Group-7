@@ -2,11 +2,11 @@
  
 ### Rules of the game:
 1. One player per game.
-2. Player has to choose his bet between _ and _ .
+2. Player has to choose his bet between 1000 and 1000000 wei.
 3. Blackjack pays 3 to 2.
-4. When doubling down, player has to double his initial bet.
+4. No doubling downavailable in this version.
 5. No split available in this version.
-6. Time per decision is set to _ .
+6. No surrender function available in this version.
 
 ### Game process.
 1. Choose a value and deploy a contraact on remix;
