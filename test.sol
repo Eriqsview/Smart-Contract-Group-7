@@ -124,6 +124,7 @@ contract Blackjack {
 
     //  HIT
     function hit() external returns (string memory _playermsg) {
+        require ( block . timestamp < TurnEndTime , 'No time left' );
         if (playercards < 21)
         playercardadd = RNG();
 
